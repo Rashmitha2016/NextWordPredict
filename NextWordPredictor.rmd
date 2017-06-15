@@ -1,0 +1,59 @@
+---
+title: "Next Word Predictor"
+author: "Rashmitha Rallapalli"
+date: "June 15, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Instructions
+
+The goal of this exercise is to create a product to highlight a prediction algorithm that is built to provide an interface that can be accessed by others. For this project, the assignment to submit is as follows:
+
+A Shiny app that takes as input a phrase (multiple words) in a text box input and outputs a prediction of the next word.
+A slide deck consisting of no more than 5 slides created with R Studio Presenter (https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations) pitching the algorithm and app.
+
+
+## Analysis
+
+- __The Data sets from HCCORPORA have been used.__
+
+- __Original Data-Set consisted of 899288 Blogs, 1010242 News and 2360148 Tweets.__
+
+- __Exploratory Data Analysis was done on 10k Blogs, News and Tweets (from HC Corpora) using “tm” and “RWeka” packages.__
+
+- __“Stylo” package has been used to build the model, for faster performance.__
+
+## Building the Natural Language Model
+- _Loaded 25% of Corpus (Blogs, News and Tweets) using “Stylo” package and created (Bigrams, Trigrams, Quadgrams & Unigrams) Frequency Lists from it, in 1 hour_.
+
+- _Pre-Processing applied was : Remove Non-English Words, Remove Swear Words, Remove Punctuation, Use lower-case._
+
+- _English Stop-Words and Stemming were NOT REMOVED.They played vital role in next word prediction (NWP) logic._
+- _“Stylo” package commands used were, like, (load.corpus.and.parse), (delete.stop.words), (make.frequency.list)._
+- _To speed up the performance further, from each of the N-grams, only those Frequencies were retained which were Greater than MEAN(Frequency) for that N-gram._
+- _The Final (Bigrams, Trigrams, Quadgrams & Unigrams) were written to CSV files, which would be fed to NWP algorithm at run-time._
+- _The NWP (Next Word Prediction) algorithm would read these files in, load them into (data.tables) and also use (setkey) commands to index (word) column of these N-grams._
+- _These measures ensured that the NWP algorithm returned results in reasonable amount of time._
+
+## App 
+
+__You can play around with the app here:__
+[https://rashmitha2017.shinyapps.io/NextWordPredict1/](https://rashmitha2017.shinyapps.io/NextWordPredict1/)
+
+Do try,its lot of fun!!
+
+__Algorithm__
+
+After entering a part of the Sentence,and pressing the Fetch results button,the app takes the last 3 words and tries to predict the Next Word. If it that can't be done, it takes last 2 words. Else, it takes the last Word.
+-This will trigger the backend logic.The message … Running Prediction Logic appears.The results are displayed in the Main Panel when done.
+
+###__Reference__
+[https://west.uni-koblenz.de/sites/default/files/BachelorArbeit_MartinKoerner.pdf](https://west.uni-koblenz.de/sites/default/files/BachelorArbeit_MartinKoerner.pdf)
+
+
+
+
